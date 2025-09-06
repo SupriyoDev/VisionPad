@@ -72,7 +72,7 @@ const FileTable = () => {
                     onClick={() => router.push(`/workspace/${file.id}`)}
                   >
                     <TableCell className="font-medium">
-                      {file.file_name}
+                      {file.fileName}
                     </TableCell>
 
                     <TableCell> {formatted}</TableCell>
