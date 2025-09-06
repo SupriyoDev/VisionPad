@@ -1,9 +1,9 @@
-import { Webhook } from "svix";
-import { headers } from "next/headers";
-import { WebhookEvent, WebhookEventType } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/drizzle";
 import { usersTable } from "@/drizzle/schema";
+import { WebhookEvent } from "@clerk/nextjs/server";
+import { headers } from "next/headers";
+import { NextRequest } from "next/server";
+import { Webhook } from "svix";
 
 export async function POST(req: NextRequest) {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 
     //user add to my own database
 
-    const new_user = await db.insert(usersTable).values({
+    await db.insert(usersTable).values({
       email: email_addresses[0].email_address,
       image: external_accounts[0].image_url || image_url,
       name: `${first_name} ${last_name}`,

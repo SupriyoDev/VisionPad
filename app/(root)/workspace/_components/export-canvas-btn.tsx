@@ -1,21 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Select } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import React, { useState } from "react";
-import { Tldraw, TLUiComponents, useEditor } from "tldraw";
+import { TLUiComponents, useEditor } from "tldraw";
 import "tldraw/tldraw.css";
 
 function ExportCanvasBtn() {
   const editor = useEditor();
-  const [bg, setBg] = useState(false);
-  const [Padding, setPadding] = useState(false);
 
   return (
     <div className=" flex flex-row items-center gap-2 p-4 border border-t-0 rounded-bl-lg">

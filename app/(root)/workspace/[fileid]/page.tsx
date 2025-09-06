@@ -6,13 +6,10 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Editor from "../_components/editor";
-import WorkspaceHeader from "../_components/workspace-header";
-import { useEditorStore } from "@/store/editor-store";
-import { useState } from "react";
-import WhiteBoard from "../_components/whiteboard";
-import WhiteboardCanvas from "../_components/whiteboard";
 import { useParams } from "next/navigation";
+import Editor from "../_components/editor";
+import WhiteboardCanvas from "../_components/whiteboard";
+import WorkspaceHeader from "../_components/workspace-header";
 
 const WorkspaceFile = () => {
   const params = useParams();

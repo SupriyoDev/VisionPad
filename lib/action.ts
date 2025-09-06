@@ -5,9 +5,7 @@ import { FileFormState } from "@/components/shared/newfilecreate";
 import { db } from "@/drizzle";
 import { filesTable, teamsTable } from "@/drizzle/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { and, eq } from "drizzle-orm";
 
 export const createTeamAction = async (
   initialState: FormState,
@@ -53,7 +51,7 @@ export const createTeamAction = async (
 export const createFileAction = async (
   initialState: FileFormState,
   formdata: FormData
-) => {
+): Promise<FileFormState> => {
   try {
     const { isAuthenticated } = await auth();
     if (!isAuthenticated) {
@@ -61,11 +59,12 @@ export const createFileAction = async (
     }
     const user = await currentUser();
 
-    const fileName = formdata.get("file_name");
+    const file_name = formdata.get("file_name")?.toString();
 
-    const team_id = formdata.get("team_id");
+    const team_id = formdata.get("team_id")?.toString();
+    const teamidnum = parseInt(team_id as string, 10);
 
-    if (!fileName || !team_id) {
+    if (!file_name || !team_id) {
       return {
         success: false,
         message: "create a file under a team id",
@@ -73,9 +72,9 @@ export const createFileAction = async (
     }
 
     await db.insert(filesTable).values({
-      file_name: fileName,
-      created_by: user?.emailAddresses[0].emailAddress,
-      team_id,
+      fileName: file_name,
+      created_by: user?.emailAddresses[0].emailAddress!,
+      team_id: teamidnum,
     });
 
     return {
@@ -98,6 +97,24 @@ export async function saveDocToRemote(fileid: string, data: string) {
         document: data,
       })
       .where(eq(filesTable.id, Number(fileid)));
+  } catch (error) {
+    return Response.json({ message: error });
+  }
+}
+
+export async function createFileArchive(formdata: FormData) {
+  try {
+    const user = await currentUser();
+    const fileId = formdata.get("file_id");
+    await db
+      .update(filesTable)
+      .set({ is_archive: true })
+      .where(
+        and(
+          eq(filesTable.id, Number(fileId)),
+          eq(filesTable.created_by, user?.primaryEmailAddress?.emailAddress!)
+        )
+      );
   } catch (error) {
     return Response.json({ message: error });
   }

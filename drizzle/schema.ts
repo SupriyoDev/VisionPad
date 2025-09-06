@@ -53,7 +53,7 @@ export const membersTable = pgTable("members", {
 
 export const filesTable = pgTable("files", {
   id: serial().primaryKey(),
-  file_name: varchar().notNull(),
+  fileName: varchar().notNull(),
   team_id: integer()
     .notNull()
     .references((): AnyPgColumn => teamsTable.id, { onDelete: "cascade" }),

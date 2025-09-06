@@ -3,13 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import { createTeamAction } from "@/lib/action";
+import { useQueryClient } from "@tanstack/react-query";
 import { Users } from "lucide-react";
 import Image from "next/image";
-import React, { useActionState, useState } from "react";
-import { Spinner } from "@/components/ui/shadcn-io/spinner";
-import { QueryClient, useQueryClient } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
+import { useActionState } from "react";
 
 export type FormState = {
   errors?: {

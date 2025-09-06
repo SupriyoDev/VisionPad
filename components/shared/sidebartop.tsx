@@ -1,12 +1,8 @@
-import { Archive, Flag, Github, LayoutGrid } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { Button } from "../ui/button";
-import NewFileCreate from "./newfilecreate";
-import { useTeamStore } from "@/store/store";
 import { cn } from "@/lib/utils";
-import { useShallow } from "zustand/react/shallow";
+import { useTeamStore } from "@/store/store";
+import { Archive, Flag, Github, LayoutGrid } from "lucide-react";
+import Link from "next/link";
+import NewFileCreate from "./newfilecreate";
 
 const bottomLinks = [
   { title: "getting started", icon: Flag, href: "" },

@@ -20,7 +20,7 @@ import { createFileAction } from "@/lib/action";
 import { useQueryClient } from "@tanstack/react-query";
 
 export interface FileFormState {
-  errors: {
+  errors?: {
     team_id?: string;
   };
   success?: boolean | null;
@@ -44,6 +44,7 @@ const NewFileCreate = ({ children }: { children: React.ReactNode }) => {
   );
 
   const [open, setOpen] = useState(false);
+  const [filename, setFileName] = useState("");
   const queryclient = useQueryClient();
 
   const [state, formAction, isPending] = useActionState(
@@ -74,6 +75,8 @@ const NewFileCreate = ({ children }: { children: React.ReactNode }) => {
                 name="file_name"
                 className=""
                 placeholder="name the file"
+                value={filename}
+                onChange={(e) => setFileName(e.currentTarget.value)}
               />
               <input
                 readOnly

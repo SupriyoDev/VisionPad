@@ -1,5 +1,6 @@
 "use client";
 
+import { saveDocToRemote } from "@/lib/action";
 import { getData, saveData } from "@/lib/index-db";
 import { useEditorStore } from "@/store/editor-store";
 import CodeBox from "@bomdi/codebox";
@@ -10,11 +11,10 @@ import Link from "@editorjs/link";
 import List from "@editorjs/list";
 import Quote from "@editorjs/quote";
 import SimpleImage from "@editorjs/simple-image";
-import { useParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import debounce from "debounce";
-import { saveDocToRemote } from "@/lib/action";
 import axios from "axios";
+import debounce from "debounce";
+import { useParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 const fallBackDoc = {
   time: 1550476186479,
@@ -44,20 +44,19 @@ const Editor = () => {
   const setEditorstore = useEditorStore((state) => state.setEditor);
   const editorRef = useRef<EditorJS | null>(null);
 
-  //Solution-- debounced local save
-  const debouncedLocalSave = debounce(async (content) => {
-    await saveData(`${fileid}`, content);
-  }, 300);
-  //debounced remote save
-  const debouncedRemoteSave = debounce(async (content) => {
-    try {
-      await saveDocToRemote(`${fileid}`, JSON.stringify(content));
-    } catch (error) {
-      console.log("remote save error");
-    }
-  }, 30 * 1000);
-
   useEffect(() => {
+    //Solution-- debounced local save
+    const debouncedLocalSave = debounce(async (content) => {
+      await saveData(`${fileid}`, content);
+    }, 300);
+    //debounced remote save
+    const debouncedRemoteSave = debounce(async (content) => {
+      try {
+        await saveDocToRemote(`${fileid}`, JSON.stringify(content));
+      } catch (error) {
+        console.log("remote save error");
+      }
+    }, 30 * 1000);
     const Init = async () => {
       let documentBlocks;
 

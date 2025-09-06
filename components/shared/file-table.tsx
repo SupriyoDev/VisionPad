@@ -23,6 +23,8 @@ import {
 import { Archive, Ellipsis } from "lucide-react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
+import { createFileArchive } from "@/lib/action";
 
 const FileTable = () => {
   const { data, isPending, isError } = useQuery({
@@ -32,6 +34,8 @@ const FileTable = () => {
       return res.data.data;
     },
   });
+
+  const user = useUser();
 
   const teamID = useTeamStore((state) => state.team_id);
   const router = useRouter();
@@ -43,7 +47,7 @@ const FileTable = () => {
           <TableRow className="bg-gray-200 hover:bg-gray-200 ">
             <TableHead className="w-[300px] text-lg">File Name</TableHead>
             <TableHead className="text-lg">Created At</TableHead>
-            <TableHead className="text-lg">Edited</TableHead>
+
             <TableHead className=" text-lg">Author</TableHead>
             <TableHead className="text-right"></TableHead>
           </TableRow>
@@ -70,14 +74,17 @@ const FileTable = () => {
                     <TableCell className="font-medium">
                       {file.file_name}
                     </TableCell>
+
                     <TableCell> {formatted}</TableCell>
-                    <TableCell>{formatted}</TableCell>
+
                     <TableCell className="">
-                      <div className="size-8 rounded-full flex items-center bg-purple-600 justify-center">
-                        <p className="text-2xl text-white">
-                          {file.created_by[0]}
-                        </p>
-                      </div>
+                      <Image
+                        alt=""
+                        src={user.user?.imageUrl!}
+                        width={50}
+                        height={50}
+                        className="size-8 rounded-full"
+                      />
                     </TableCell>
                     <TableCell>
                       <DropdownMenu>
@@ -87,8 +94,31 @@ const FileTable = () => {
                           </div>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-20 ">
-                          <DropdownMenuItem className="">
-                            <Archive className="size-4 text-gray-700" /> Archive
+                          <DropdownMenuItem className="p-0">
+                            <form
+                              action={async () => {
+                                createFileArchive;
+                              }}
+                              className="size-full"
+                            >
+                              <div>
+                                <input
+                                  value={file.id}
+                                  name="file_id"
+                                  type="text"
+                                  hidden
+                                  readOnly
+                                />
+                              </div>
+                              <Button
+                                className="size-full"
+                                type="submit"
+                                variant={"ghost"}
+                              >
+                                <Archive className="size-4 text-gray-700" />{" "}
+                                Archive
+                              </Button>
+                            </form>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>

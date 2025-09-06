@@ -7,16 +7,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Image from "next/image";
-import { Separator } from "../ui/separator";
-import { LogOut, Settings, Users } from "lucide-react";
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
 import { useTeamStore } from "@/store/store";
 import { SignOutButton, useUser } from "@clerk/nextjs";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { LogOut, Settings, Users } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Separator } from "../ui/separator";
 export function TeamPopover({ children }: { children: React.ReactNode }) {
   const { user } = useUser();
 
