@@ -307,8 +307,8 @@ h4.ce-header {
   @apply text-lg font-normal;
 }
 h5.ce-header {
-  @apply text-base font-normal;
+  @apply text-lg font-normal;
 }
 h6.ce-header {
-  @apply text-base font-light;
+  @apply text-lg font-light;
 }
