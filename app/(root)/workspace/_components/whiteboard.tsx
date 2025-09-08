@@ -10,7 +10,7 @@ export default function WhiteboardCanvas({
   persistenceKey: string;
 }) {
   return (
-    <div className="relative h-full w-full">
+    <div className="relative flex h-full w-full overflow-hidden">
       <Tldraw persistenceKey={persistenceKey} components={components} />
     </div>
   );

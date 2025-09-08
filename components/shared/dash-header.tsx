@@ -23,7 +23,7 @@ const DashHeader = () => {
       <div>
         <Image
           src={user.user?.imageUrl!}
-          alt=""
+          alt="dsd"
           width={100}
           height={100}
           className="size-10 rounded-full"

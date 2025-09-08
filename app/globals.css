@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@import "../styles/_variables.scss";
+@import "../styles/_keyframe-animations.scss";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -283,8 +286,8 @@
   }
 }
 
-/* editor styling */
-.ce-block__content,
+/* editor styling for editorjs */
+/* .ce-block__content,
 .ce-toolbar__content {
   max-width: 100% !important;
   width: 100% !important;
@@ -311,4 +314,4 @@ h5.ce-header {
 }
 h6.ce-header {
   @apply text-lg font-light;
-}
+} */

@@ -1,9 +1,9 @@
 import { create } from "zustand";
-import type EditorJS from "@editorjs/editorjs";
+import type { Editor } from "@tiptap/react";
 
 interface EditorStore {
-  editor: EditorJS | null;
-  setEditor: (editor: EditorJS) => void;
+  editor: Editor | null;
+  setEditor: (editor: Editor) => void;
 }
 
 export const useEditorStore = create<EditorStore>((set) => ({
