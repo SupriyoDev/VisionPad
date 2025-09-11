@@ -300,7 +300,7 @@ export function SimpleEditor() {
       const local = await getData(fileid as string);
 
       if (local?.data) {
-        documentBlocks = local?.data;
+        documentBlocks = JSON.parse(local?.data);
       } else {
         //remote data
         const remoteRes = await axios.get("/api/document", {
@@ -312,7 +312,7 @@ export function SimpleEditor() {
         if (remoteRes.data?.doc) {
           documentBlocks = JSON.parse(remoteRes.data?.doc);
           //set the remote data to indexdb cache
-          await saveData(fileid as string, documentBlocks);
+          await saveData(fileid as string, remoteRes.data?.doc);
         } else {
           documentBlocks = content;
         }
