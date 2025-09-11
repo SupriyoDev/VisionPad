@@ -287,6 +287,7 @@ export function SimpleEditor() {
 
     const handleUpdate = () => {
       const data = JSON.stringify(editor.getJSON());
+      console.log("data", data);
       debouncedLocalSave(data);
       debouncedRemoteSave(data);
     };
@@ -318,10 +319,8 @@ export function SimpleEditor() {
       }
 
       if (documentBlocks) {
-        const data = JSON.parse(documentBlocks);
+        const data = documentBlocks;
         editor.commands.setContent(data);
-
-        console.log(editor.getJSON());
       }
     };
     Init();
